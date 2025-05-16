@@ -1,11 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CodeGenesis - AI Coding Idea Suggester</title>
-</head>
-<body class="bg-gray-900">
-    <h1 style="color: white;">no</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}CodeGenesis - AI Coding Project {% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1>CodeGenesis</h1>
+        <p>Generate personalized coding projectsbased on your skill level</p>
+        <a href="{{ url_for('generate') }}" class="btn btn-primary">Get Started</a>
+    </div>
+</section>
+
+<section class="features">
+    <div class="feature-card">
+        <h3>Beginner Friendly</h3>
+        <p>Detailed instruction and starter code for newcomers</p>
+    </div>
+    <div class="feature-card">
+        <h3>Intermediate Projects</h3>
+        <p>Balanced guidance for growing developers</p>
+    </div>
+    <div class="feature-card">
+        <h3>Advanced Challenges</h3>
+        <p>Complex projects with room for creativity</p>
+    </div>
+</section>
+{% endblock %}
