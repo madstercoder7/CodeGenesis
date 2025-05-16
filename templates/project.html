@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ project.title }} - <CodeGenesis>% endblock %</CodeGenesis>
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', 'filename='css/project.css') }}">
+{% endblock %}
+
+{% blocl content %}
+<article class="project-container">
+    <header class="project-header">
+        <h1>{{ project.title }}</h1>
+        <div class="project-meta">
+            <span class="tag skill-level">{{ project.skill_level|title }}</span>
+            {% for tech in project.tech_stack.split(',') %}
+                <span class="tag tech">{{ tech.strip() }}</span>
+            {% endfor %}
+        </div>
+    </header>
+
+    <div class="project-content">
+        {{ project.content|safe }}
+    </div>
+
+    <div class="action-buttons">
+        <button id="save-project" class="btn">Save to Dashboard</button>
+        <button id="download-project" class="btn">Download as PDF</button>
+        <button id="share-project" class="btn">Share Project</button>
+    </div>
+</article>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/code-dispaly.js') }}"></script>
+
