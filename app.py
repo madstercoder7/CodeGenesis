@@ -1,19 +1,23 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, redirect, url_for, session
+from models.database import init_db
+from services.ai_generator import generate project
+from services.project_service import save_project, get_user_projects
 import os
-import requests
-from dotenv import load_dotenv
-
-load_dotenv()
 
 app = Flask(__name__)
+app.config.from_object('config.DevelopmentConfig')
 
-GROQ_API_KEY = os.getenv("GROQ_API_KEY");
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
+@app.before_request
+def setup():
+    init_db()
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
-@app.route("/generate", methods=["POST"])
+@app.route("/generate", methods=['GET', 'POST'])
 def generate():
     data = request.json
     user_prompt = data.get("prompt", "")
