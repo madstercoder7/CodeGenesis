@@ -1,35 +1,35 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ project.title }} - <CodeGenesis>% endblock %</CodeGenesis>
+{% block title %}{{ project.title or 'Project' }} - CodeGenesis{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', 'filename='css/project.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/project.css') }}">
 {% endblock %}
 
-{% blocl content %}
+{% block content %}
 <article class="project-container">
     <header class="project-header">
-        <h1>{{ project.title }}</h1>
+        <h1>{{ project.title or 'Your Generated Project' }}</h1>
         <div class="project-meta">
             <span class="tag skill-level">{{ project.skill_level|title }}</span>
             {% for tech in project.tech_stack.split(',') %}
-                <span class="tag tech">{{ tech.strip() }}</span>
+                <span class="tag technology">{{ tech.strip() }}</span>
             {% endfor %}
+            <span class="tag project-type">{{ project.project_type|title }}</span>
         </div>
     </header>
-
+    
     <div class="project-content">
         {{ project.content|safe }}
     </div>
-
+    
     <div class="action-buttons">
         <button id="save-project" class="btn">Save to Dashboard</button>
-        <button id="download-project" class="btn">Download as PDF</button>
-        <button id="share-project" class="btn">Share Project</button>
+        <button id="download-project" class="btn">Download</button>
     </div>
 </article>
 {% endblock %}
 
 {% block extra_js %}
-<script src="{{ url_for('static', filename='js/code-dispaly.js') }}"></script>
-
+<script src="{{ url_for('static', filename='js/code-display.js') }}"></script>
+{% endblock %}

@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-from models.database import init_db
-from services.ai_generator import generate_project
-from services.project_service import save_project, get_user_projects
 import os
+from services.ai_generator import generate_project
+from services.project_service import save_project, get_project, get_user_projects
+from models.database import init_db
 
 app = Flask(__name__)
 app.config.from_object('config.DevelopmentConfig')
@@ -32,7 +32,7 @@ def generate():
     
     return render_template('generate.html')
 
-@app.route('/project/<init:project_id>')
+@app.route('/project/<int:project_id>')
 def view_project(project_id):
     project = get_project(project_id)
     return render_template('project.html', project=project)
