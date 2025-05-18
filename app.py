@@ -25,6 +25,23 @@ def generate():
         project_type = request.form.get("project_type")
 
         project_content = generate_project(skill_level, tech_stack, project_type)
+        project_id = save_project(session.get('user_id', 'anonymous'),
+                                  skill_level, tech_stack, project_content)
+        
+        return redirect(url_for('view_project', project_id=project_id))
+    
+    return render_template('generate.html')
+
+@app.route('/project/<init:project_id>')
+def view_project(project_id):
+    project = get_project(project_id)
+    return render_template('project.html', project=project)
+
+@app.route('/dashboard')
+def dashboard():
+    user_id = session.get('user_id', 'anonymous')
+    projects = get_user_projects(user_id)
+    return render_template('dashboard.html', projects=projects)
     
 if __name__ == "__main__":
     app.run(debug=True)
